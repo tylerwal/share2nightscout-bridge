@@ -31,40 +31,22 @@ var meta = require('./package.json');
 // Defaults
 var server = "share2.dexcom.com";
 var bridge = readENV('BRIDGE_SERVER')
-<<<<<<< HEAD
     if (bridge && bridge.indexOf(".") > 1) {
       server = bridge;
     }
     else if (bridge && bridge === 'EU') {
       server = "shareous1.dexcom.com";
     }
-=======
-if (bridge && bridge.indexOf(".") > 1) {
-  server = bridge;
-}
-else if (bridge && bridge === 'EU') {
-  server = "shareous1.dexcom.com";
-}
->>>>>>> 1757990... Copying down a pull request
 
 
 var Defaults = {
   "applicationId":"d89443d2-327c-4a6f-89e5-496bbb0317db"
-<<<<<<< HEAD
 , "agent": [meta.name, meta.version].join('/')
 , auth:  'https://' + server + '/ShareWebServices/Services/General/AuthenticatePublisherAccount'
 , login: 'https://' + server + '/ShareWebServices/Services/General/LoginPublisherAccountById'
 , accept: 'application/json'
 , 'content-type': 'application/json'
 , LatestGlucose: 'https://' + server + '/ShareWebServices/Services/Publisher/ReadPublisherLatestGlucoseValues'
-=======
-  , "agent": [meta.name, meta.version].join('/')
-  , auth:  'https://' + server + '/ShareWebServices/Services/General/AuthenticatePublisherAccount'
-  , login: 'https://' + server + '/ShareWebServices/Services/General/LoginPublisherAccountById'
-  , accept: 'application/json'
-  , 'content-type': 'application/json'
-  , LatestGlucose: 'https://' + server + '/ShareWebServices/Services/Publisher/ReadPublisherLatestGlucoseValues'
->>>>>>> 1757990... Copying down a pull request
 // ?sessionID=e59c836f-5aeb-4b95-afa2-39cf2769fede&minutes=1440&maxCount=1"
   , nightscout_upload: '/api/v1/entries.json'
   , nightscout_battery: '/api/v1/devicestatus.json'
@@ -106,13 +88,8 @@ function trendToDirection (trend) {
 function auth_payload (opts) {
   var body = {
     "password": opts.password
-<<<<<<< HEAD
   , "applicationId" : opts.applicationId || Defaults.applicationId
   , "accountName": opts.accountName
-=======
-    , "applicationId" : opts.applicationId || Defaults.applicationId
-    , "accountName": opts.accountName
->>>>>>> 1757990... Copying down a pull request
   };
   return body;
 }
@@ -126,17 +103,10 @@ function getAccountId(opts, then) {
     var url = opts.auth || Defaults.auth;
     var body = auth_payload(opts);
     var headers = { 'User-Agent': opts.agent || Defaults.agent
-<<<<<<< HEAD
                   , 'Content-Type': Defaults['content-type']
                   , 'Accept': Defaults.accept };
     var req ={ uri: url, body: body, json: true, headers: headers, method: 'POST'
              , rejectUnauthorized: false };
-=======
-      , 'Content-Type': Defaults['content-type']
-      , 'Accept': Defaults.accept };
-    var req ={ uri: url, body: body, json: true, headers: headers, method: 'POST'
-      , rejectUnauthorized: false };
->>>>>>> 1757990... Copying down a pull request
     // Asynchronously calls the `then` function when the request's I/O
     // is done.
     return request(req, then);
@@ -148,13 +118,8 @@ function getAccountId(opts, then) {
 function login_payload (opts) {
   var body = {
     "password": opts.password
-<<<<<<< HEAD
   , "applicationId" : opts.applicationId || Defaults.applicationId
   , "accountId": accountId
-=======
-    , "applicationId" : opts.applicationId || Defaults.applicationId
-    , "accountId": accountId
->>>>>>> 1757990... Copying down a pull request
   };
   return body;
 }
@@ -169,32 +134,16 @@ function authorize (opts, then) {
       var url = opts.login || Defaults.login;
       var body = login_payload(opts);
       var headers = { 'User-Agent': opts.agent || Defaults.agent
-<<<<<<< HEAD
                     , 'Content-Type': Defaults['content-type']
                     , 'Accept': Defaults.accept };
       var req ={ uri: url, body: body, json: true, headers: headers, method: 'POST'
                , rejectUnauthorized: false };
-=======
-        , 'Content-Type': Defaults['content-type']
-        , 'Accept': Defaults.accept };
-      var req ={ uri: url, body: body, json: true, headers: headers, method: 'POST'
-        , rejectUnauthorized: false };
->>>>>>> 1757990... Copying down a pull request
       // Asynchronously calls the `then` function when the request's I/O
       // is done.
       return request(req, then);
     } else {
-<<<<<<< HEAD
       var responseStatus = res ? res.statusCode : "response not found";
       console.log("Cannot authorize account: ", err, responseStatus, body);
-=======
-      failures++;
-      var responseStatus = res ? res.statusCode : "response not found";
-      console.log("Error authorizing", err, responseStatus, body);
-      if (failures >= opts.maxFailures) {
-        throw "Too many login failures, check DEXCOM_ACCOUNT_NAME and DEXCOM_PASSWORD";
-      }
->>>>>>> 1757990... Copying down a pull request
     }
   });
 }
@@ -392,11 +341,7 @@ function readENV(varName, defaultValue) {
 if (!module.parent) {
   if (readENV('API_SECRET').length < Defaults.MIN_PASSPHRASE_LENGTH) {
     var msg = [ "API_SECRET environment variable should be at least"
-<<<<<<< HEAD
               , Defaults.MIN_PASSPHRASE_LENGTH, "characters" ];
-=======
-      , Defaults.MIN_PASSPHRASE_LENGTH, "characters" ];
->>>>>>> 1757990... Copying down a pull request
     var err = new Error(msg.join(' '));
     throw err;
     process.exit(1);
@@ -457,8 +402,4 @@ if (!module.parent) {
       break;
       break;
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 1757990... Copying down a pull request

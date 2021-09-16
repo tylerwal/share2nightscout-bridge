@@ -49,11 +49,7 @@ describe("authorize_fetch", () => {
 			(error, glucose) => {
 				glucose.should
 					.be.an.instanceOf(String)
-<<<<<<< HEAD
 					.and.containEql("Forbidden");
-=======
-					.and.containEql("403 Forbidden");
->>>>>>> 1757990... Copying down a pull request
 				done(error);
 			}
 		)
